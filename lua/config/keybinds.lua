@@ -1,5 +1,19 @@
 local opts = { noremap = true, silent = true }
 
+-- Navigate splits
+vim.keymap.set('n', '<A-h>', '<C-w>h',                  { noremap = true, silent = true, desc = "Window left" })
+vim.keymap.set('n', '<A-j>', '<C-w>j',                  { noremap = true, silent = true, desc = "Window down" })
+vim.keymap.set('n', '<A-k>', '<C-w>k',                  { noremap = true, silent = true, desc = "Window up" })
+vim.keymap.set('n', '<A-l>', '<C-w>l',                  { noremap = true, silent = true, desc = "Window right" })
+vim.keymap.set('t', '<A-h>', [[<C-\><C-n><C-w>h]],      { noremap = true, silent = true })
+vim.keymap.set('t', '<A-j>', [[<C-\><C-n><C-w>j]],      { noremap = true, silent = true })
+vim.keymap.set('t', '<A-k>', [[<C-\><C-n><C-w>k]],      { noremap = true, silent = true })
+vim.keymap.set('t', '<A-l>', [[<C-\><C-n><C-w>l]],      { noremap = true, silent = true })
+vim.keymap.set('n', '<C-h>', ':vertical resize +2<CR>', { noremap = true, silent = true, desc = "Increase width (right)" })
+vim.keymap.set('n', '<C-j>', ':resize -2<CR>',          { noremap = true, silent = true, desc = "Decrease height (up)" })
+vim.keymap.set('n', '<C-k>', ':resize +2<CR>',          { noremap = true, silent = true, desc = "Increase height (down)" })
+vim.keymap.set('n', '<C-l>', ':vertical resize -2<CR>', { noremap = true, silent = true, desc = "Decrease width (left)" })
+
 -- Moving visual selection
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'moves lines down in visual selection' })
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'moves lines up in visual selection' })
@@ -43,14 +57,15 @@ vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'LSP: Rename symb
 -- Plugins
 
 -- Oil
-vim.keymap.set('n', '<leader>e', require('oil').toggle_float, { desc = 'Toggle oil from the parent directory' })
+--vim.keymap.set('n', '<leader>e', require('oil').toggle_float, { desc = 'Toggle oil from the parent directory' })
+vim.keymap.set('n', '<leader>e', function() vim.cmd('Oil') end, { desc = 'Open Dired' }) 
 
 -- Terminal
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Exit terminal insert mode' })
 
 -- LSP
-vim.keymap.set('i', '<C-space>', vim.lsp.completion.get, { desc = 'trigger autocompletion' })
 vim.keymap.set('i', '<Enter>', function() return vim.fn.pumvisible() == 1 and '<C-y>' or '<Enter>' end, { expr = true })
+
 
 -- Todo comments
 --vim.keymap.set('n', '<leader>tl', ':TodoQuickFix<CR>', { noremap = true, silent = true })
@@ -92,3 +107,15 @@ vim.keymap.set('n', '<leader>tl',           function() Snacks.picker.todo_commen
 vim.keymap.set({'n', 'v'}, '<leader>gB',    function() Snacks.gitbrowse() end,                      { desc = 'Git Browse' })
 vim.keymap.set({'n', 't'}, ']]',            function() Snacks.words.jump(vim.v.count1) end,         { desc = 'Next Reference' })
 vim.keymap.set({'n', 't'}, '[[',            function() Snacks.words.jump(-vim.v.count1) end,        { desc = 'Prev Reference' })
+
+-- Harpoon
+local harpoon = require('harpoon')
+
+vim.keymap.set('n', '<A-a>', function() harpoon:list():add() end,                           { desc = 'Harpoon Append' })
+vim.keymap.set('n', '<A-w>', function() harpoon:list():remove() vim.cmd('bdelete') end,     { desc = 'Harpoon Append' })
+vim.keymap.set('n', '<A-e>', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,   { desc = 'Harpoon Menu' })
+vim.keymap.set('n', '<A-1>', function() harpoon:list():select(1) end,                       { desc = 'Harpoon select' })
+vim.keymap.set('n', '<A-2>', function() harpoon:list():select(2) end,                       { desc = 'Harpoon select' })
+vim.keymap.set('n', '<A-3>', function() harpoon:list():select(3) end,                       { desc = 'Harpoon select' })
+vim.keymap.set('n', '<A-4>', function() harpoon:list():select(4) end,                       { desc = 'Harpoon select' })
+vim.keymap.set('n', '<A-5>', function() harpoon:list():select(5) end,                       { desc = 'Harpoon select' })

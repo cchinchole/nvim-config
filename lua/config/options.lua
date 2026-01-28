@@ -11,6 +11,7 @@ vim.opt.updatetime = 5
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 vim.opt.hlsearch = true
+vim.opt.splitbelow = true
 vim.g.editorconfig = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
