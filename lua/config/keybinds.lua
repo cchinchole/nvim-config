@@ -82,10 +82,10 @@ vim.keymap.set('n', '<leader>,',            function() Snacks.picker.buffers() e
 vim.keymap.set('n', '<leader>ff',           function() Snacks.picker.files() end,                   { desc = 'Find Files' })
 vim.keymap.set('n', '<leader>fg',           function() Snacks.picker.git_files() end,               { desc = 'Find Git Files' })
 vim.keymap.set('n', '<leader>fp',           function() Snacks.picker.projects() end,                { desc = 'Projects' })
-vim.keymap.set('n', '<leader>gb',           function() Snacks.picker.git_branches() end,            { desc = 'Git Branches' })
-vim.keymap.set('n', '<leader>gl',           function() Snacks.picker.git_log() end,                 { desc = 'Git Log' })
-vim.keymap.set('n', '<leader>gd',           function() Snacks.picker.git_diff() end,                { desc = 'Git Diff (Hunks)' })
-vim.keymap.set('n', '<leader>gs',           function() Snacks.picker.git_status() end,              { desc = 'Git Status' })
+--vim.keymap.set('n', '<leader>gb',           function() Snacks.picker.git_branches() end,            { desc = 'Git Branches' })
+--vim.keymap.set('n', '<leader>gl',           function() Snacks.picker.git_log() end,                 { desc = 'Git Log' })
+--vim.keymap.set('n', '<leader>gd',           function() Snacks.picker.git_diff() end,                { desc = 'Git Diff (Hunks)' })
+--vim.keymap.set('n', '<leader>gs',           function() Snacks.picker.git_status() end,              { desc = 'Git Status' })
 vim.keymap.set('n', '<leader>sb',           function() Snacks.picker.lines() end,                   { desc = 'Search Buffer Lines' })
 vim.keymap.set('n', '<leader>sw',           function() Snacks.picker.grep_word() end,               { desc = 'Visual selection or word' })
 vim.keymap.set({'n', 'x'}, '<leader>sC',    function() Snacks.picker.commands() end,                { desc = 'Search Commands' })
@@ -119,3 +119,7 @@ vim.keymap.set('n', '<A-2>', function() harpoon:list():select(2) end,           
 vim.keymap.set('n', '<A-3>', function() harpoon:list():select(3) end,                       { desc = 'Harpoon select' })
 vim.keymap.set('n', '<A-4>', function() harpoon:list():select(4) end,                       { desc = 'Harpoon select' })
 vim.keymap.set('n', '<A-5>', function() harpoon:list():select(5) end,                       { desc = 'Harpoon select' })
+
+
+-- Neogit
+vim.keymap.set('n', '<leader>gg', function() vim.cmd('Neogit') end, { desc = 'Show Neogit' }) 

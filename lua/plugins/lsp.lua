@@ -55,4 +55,4 @@ cmp.setup({
     }),
 })
 
-vim.lsp.enable({ 'clangd', 'lua_ls', 'rust_analyzer' })
+vim.lsp.enable({ 'clangd', 'lua_ls', 'rust_analyzer', 'gopls' })
