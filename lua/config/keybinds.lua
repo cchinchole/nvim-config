@@ -123,3 +123,7 @@ vim.keymap.set('n', '<A-5>', function() harpoon:list():select(5) end,           
 
 -- Neogit
 vim.keymap.set('n', '<leader>gg', function() vim.cmd('Neogit') end, { desc = 'Show Neogit' }) 
+vim.keymap.set('n', '<leader>gh', function() vim.cmd('DiffviewFileHistory %') end, { desc = 'Show Neogit' }) 
+
+-- Undotree
+vim.keymap.set('n', '<leader>ut', function() vim.cmd('UndotreeToggle') end, { desc = 'Undotree Toggle' }) 
