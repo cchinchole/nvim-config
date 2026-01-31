@@ -14,7 +14,7 @@ vim.opt.hlsearch = true
 vim.opt.splitbelow = true
 vim.g.editorconfig = true
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.maplocalleader = "\\"
 
 -- System clipboard
 vim.opt.clipboard:append("unnamedplus")

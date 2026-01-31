@@ -58,14 +58,20 @@ vim.keymap.set('n', '<C-o>', function() vim.cmd('Oil') end, { desc = 'Open Dired
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Exit terminal insert mode' })
 
 -- LSP
-vim.keymap.set('i', '<Enter>', function() return vim.fn.pumvisible() == 1 and '<C-y>' or '<Enter>' end, { expr = true })
-vim.keymap.set('n', '<leader>rn',   vim.lsp.buf.rename,             { desc = 'Rename symbol' })
-vim.keymap.set('n', '<leader>f',    vim.lsp.buf.format,             { desc = 'Format LSP'})
-vim.keymap.set('n', 'gd',           vim.lsp.buf.definition ,        { desc = 'Goto Definition' })
-vim.keymap.set('n', 'gD',           vim.lsp.buf.declaration,        { desc = 'Goto Declaration' })
-vim.keymap.set('n', 'gI',           vim.lsp.buf.implementation,     { desc = 'Goto Implementation' })
-vim.keymap.set('n', 'gr',           vim.lsp.buf.references,         { desc = 'References' })
-vim.keymap.set('n', 'gt',           vim.lsp.buf.type_definition,    { desc = 'Goto type definition' })
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(eh)
+        vim.keymap.set('i', '<Enter>', function() return vim.fn.pumvisible() == 1 and '<C-y>' or '<Enter>' end, { expr = true })
+        vim.keymap.set('n', '<leader>rn',   vim.lsp.buf.rename,                     { desc = 'Rename symbol', buffer = eh.buf })
+        vim.keymap.set('n', '<leader>fl',   vim.lsp.buf.format,                     { desc = 'Format LSP', buffer = eh.buf})
+        vim.keymap.set('n', 'gd',           vim.lsp.buf.definition ,                { desc = 'Goto Definition', buffer = eh.buf })
+        vim.keymap.set('n', 'gD',           vim.lsp.buf.declaration,                { desc = 'Goto Declaration', buffer=eh.buf })
+        vim.keymap.set('n', 'gI',           vim.lsp.buf.implementation,             { desc = 'Goto Implementation', buffer=eh.buf })
+        vim.keymap.set('n', 'gr',           vim.lsp.buf.references,                 { desc = 'References', buffer=eh.buf })
+        vim.keymap.set('n', 'gt',           vim.lsp.buf.type_definition,            { desc = 'Goto type definition',buffer=eh.buf })
+        vim.keymap.set('n', 'K', function() vim.lsp.buf.hover({border='single'}) end,{ desc = 'Show hover',buffer=eh.buf})
+        vim.keymap.set('n', 'sh',           vim.lsp.buf.signature_help,             { desc = 'Show signature',buffer=eh.buf})
+    end,
+})
 
 -- Conform
 vim.keymap.set({'n', 'v'}, '<leader>l', function() require('conform').format({lsp_fallback = true, async = false, timeout_ms = 500}) end, { desc = 'Format' })

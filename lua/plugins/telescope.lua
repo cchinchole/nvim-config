@@ -1,6 +1,12 @@
-vim.pack.add({
-    {src='https://github.com/nvim-telescope/telescope.nvim'},
-    {src='https://github.com/nvim-lua/plenary.nvim'}
-})
-
-require('telescope').setup({})
+return
+{
+    'nvim-telescope/telescope.nvim',
+    version = '*',
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+    },
+    config = function()
+        require('telescope').setup({})
+    end
+}
