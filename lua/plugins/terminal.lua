@@ -1,7 +1,7 @@
 vim.pack.add({'https://github.com/akinsho/toggleterm.nvim.git'})
 
 require('toggleterm').setup({
-    size = 20,
+    size = 10,
     open_mapping = [[<C-t>]],
     hide_numbers = true,
     shade_terminals = true,
