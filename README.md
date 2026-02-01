@@ -26,7 +26,7 @@ ctrl-p          - Previous item\
 enter           - Confirms choice
 
 ### Oil ###
-ctrl-o          - Toggle oil\
+ctrl-o          - Toggle oil
 
 ### Terminal ###
 Ctrl t          - Open / close terminal\
