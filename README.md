@@ -1,18 +1,15 @@
 # My Nvim configuration #
 ## Install Reqs ##
-pacman -S npm ripgrep wget nodejs fzf unzip\
-\
-This will show all available keybinds:\
-<leader>sk      - Search keybinds
+pacman -S npm ripgrep wget nodejs fzf unzip
 
 ## Keybinds ##
-### Movement ###
-<leader>nf      - Go to next function\
-<leader>NF      - Go to previous function\
-<leader>np      - Go to next parameter\
-<leader>NP      - Go to previous parameter\
-<leader>nt      - Go to next todo\
-<leader>NT      - Go to previous todo\
+
+### Sessionizer ###
+ctrl-f          - Sessionizer
+
+### Splits ###
+alt-h,j,k,l     - Selects the buffer\
+ctrl-h,j,k,l    - Resizes the buffer
 
 ### Visual ###
 J               - Move selection up\
@@ -21,65 +18,53 @@ K               - Move selection down\
 \>              - Move selection right
 
 ### Selection ###
-sp              - Select parameter outer\
 ctrl-c          - Stop highlighting / escape insert
-
-### Swap ###
-ctrl-.          - Swap to the next parameter\
-ctrl-,          - Swap to the previous
 
 ### Auto completion ###
 ctrl-n          - Next item\
 ctrl-p          - Previous item\
 enter           - Confirms choice
 
-### Lists ###
-leader tl       - Open quick fix list for todos\
-leader space    - Smart find files\
-leader ,        - Buffer list\
-leader fc       - Find config files\
-leader ff       - File picker\
-leader fg       - Find git file\
-leader fp       - File picker for project\
-leader gb       - Find git brang\
-leader gl       - Show git log\
-leader gd       - Show git diff\
-leader gs       - Show git status\
-leader ss       - Show symbol list\
-leader sS       - Show project symbol list
-
-### Search ###
-leader fr       - Find and replace highlighted\
-leader sb       - Search buffer lines\
-leader sw       - Search hovered word\
-leader sC       - Search commands\
-leader sd       - Search diagnostics\
-leader sH       - Search highlights\
-leader si       - Search icons\
-leader su       - Search undo tree\
-leader uC       - Search color schemes
-
-### Pasting ###
-leader P        - Paste from system clipboard
-
-### LSP ###
-gd              - Go to definition\
-gr              - Show references\
-gI              - Go to implementation\
-gy              - Goto type definition\
-qf              - Quickfix list\
-]]              - Next reference\
-[[              - Previous reference\
-rn              - Rename Symbol\
-leader f        - Format code
-
-
-### File Browser ###
-leader e        - Open file browser (uses normal vim movement)
+### Oil ###
+ctrl-o          - Toggle oil
 
 ### Terminal ###
 Ctrl t          - Open / close terminal\
 Esc             - Exit terminal insert mode
 
+### LSP ###
+gd              - Go to definition\
+gD              - Go to declaration\
+gr              - Show references\
+gi              - Go to implementation\
+gt              - Goto type definition\
+]]              - Next reference\
+[[              - Previous reference\
+leader rn       - Rename Symbol\
+leader f        - Format
+
 ### Conform ###
 leader l        - Format
+
+### Harpoon ###
+alt a           - Add current file to tags\
+alt e           - Open tag explorer\
+alt w           - Remove current file from tags\
+alt 1-5         - Jump to file
+
+### Neogit ###
+leader gg       - Open neogit\
+leader gh       - Show diffview
+
+### Undotree ###
+leader ut       - Show undotree
+
+### Search ###
+leader e        - Fuzzy find files\
+leader pg       - Fuzzy find git files\
+leader pw       - Grep find current selected word\
+leader pr       - Grep find current selected WORD\
+leader ps       - Grep search\
+leader sf       - Find symbols (current file)\
+leader sg       - Find symbols (workspace)\
+leader uc       - Search color schemes

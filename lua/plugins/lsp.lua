@@ -1,77 +1,86 @@
 return {
-    "neovim/nvim-lspconfig",
+    'neovim/nvim-lspconfig',
     dependencies = {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-        "hrsh7th/cmp-cmdline",
-        "hrsh7th/nvim-cmp",
-        "L3MON4D3/LuaSnip",
-        "saadparwaiz1/cmp_luasnip",
-        "j-hui/fidget.nvim",
-        "stevearc/conform.nvim"
+        'hrsh7th/nvim-cmp',
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-cmdline',
+        'L3MON4D3/LuaSnip',
+        'saadparwaiz1/cmp_luasnip',
+        'j-hui/fidget.nvim',
+        'stevearc/conform.nvim'
     },
-
+    lazy = false,
     config = function()
-        require("fidget").setup({})
-        require("mason").setup()
-        require("mason-lspconfig").setup({
-            ensure_installed = {
-                "clangd",
-                "pyright",
-                "lua_ls",
-                "rust_analyzer",
-            }
-        })
-
-        local cmp = require('cmp')
-        local cmp_select = { behavior = cmp.SelectBehavior.Select }
-        cmp.setup({
-            snippet = {
-                expand = function(args)
-                    require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-                end,
-            },
-            mapping = cmp.mapping.preset.insert({
-                ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-                ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-                ['<Return>'] = cmp.mapping.confirm({ select = true }),
-            }),
-            sources = cmp.config.sources({
-                { name = 'nvim_lsp' },
-            }, {
-                { name = 'buffer' },
-            })
-        })
-
         vim.diagnostic.config({
+            virtual_lines = false,
             virtual_text = {
                 severity = { min = vim.diagnostic.severity.ERROR },
                 spacing = 4,
-                prefix = "●",
+                prefix = '●',
             },
             float = {
                 focusable = false,
-                style = "minimal",
-                border = "rounded",
-                source = "always",
-                header = "",
-                prefix = "",
+                style = 'minimal',
+                border = 'rounded',
+                source = 'always',
+                header = '',
+                prefix = '',
             },
             signs = true,
-            underline = true,
+            underline = false,
             update_in_insert = false,
             severity_sort = true,
         })
 
-        vim.keymap.set({ "n", "v" }, "<leader>l", function()
-            require("conform").format({
-                lsp_fallback = true,
-                async = false,
-                timeout_ms = 500,
-            })
-        end, { desc = "Format code" })
+        -- Setup nvim-cmp
+        local cmp = require('cmp')
+        cmp.setup({
+            snippet = {
+                expand = function(args)
+                    require('luasnip').lsp_expand(args.body) -- For LuaSnip
+                end,
+            },
+            mapping = cmp.mapping.preset.insert({
+                ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+                ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                ['<C-Space>'] = cmp.mapping.complete(),
+                ['<C-e>'] = cmp.mapping.abort(),
+                ['<CR>'] = cmp.mapping.confirm({ select = true }),
+            }),
+            sources = cmp.config.sources({
+                { name = 'nvim_lsp' },
+                { name = 'luasnip' },
+                { name = 'buffer' },
+                { name = 'path' },
+            }),
+        })
+
+        require('conform').setup({
+            formatters_by_ft = {
+                lua = { 'stylua' },
+                python = { 'isort', 'black' },
+                rust = { 'rustfmt' },
+                c = { 'clang-format' },
+                cpp = { 'clang-format' },
+                go = { 'gofmt' }
+            },
+        })
+
+        -- Disable the annoying vim warnings
+        vim.lsp.config('lua_ls', {
+            settings = {
+                Lua = {
+                    diagnostics = {
+                        globals = {'vim'}
+                    },
+                    telemetry = {
+                        enable = false
+                    }
+                }
+            }
+        })
+        vim.lsp.enable({ 'clangd', 'lua_ls', 'rust_analyzer', 'gopls' })
     end
 }
