@@ -3,6 +3,11 @@ local opts = { noremap = true, silent = true }
 -- Sessionizer
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
+-- Reverse case all hex values beside the x in a selection
+vim.keymap.set('x', '<leader>uh',
+  [[:<C-u>keeppatterns '<,'>s/\%V\x/\=submatch(0) =~# '\u' ? tolower(submatch(0)) : toupper(submatch(0))/g<CR>gv]],
+  { silent = true, desc = 'Toggle case of hex digits in selection' })
+
 -- Navigate splits
 vim.keymap.set('n', '<A-h>', '<C-w>h',                  { noremap = true, silent = true, desc = "Window left" })
 vim.keymap.set('n', '<A-j>', '<C-w>j',                  { noremap = true, silent = true, desc = "Window down" })
@@ -52,7 +57,18 @@ vim.keymap.set('n', 'Q', '<nop>')
 vim.keymap.set('n', '<leader>fr', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>')
 
 -- Oil
-vim.keymap.set('n', '<C-o>', function() vim.cmd('Oil') end, { desc = 'Open Dired' }) 
+--vim.keymap.set('n', '<C-o>', function() vim.cmd('Oil') end, { desc = 'Open Dired' }) 
+--vim.keymap.set('n', '<C-o>', function()
+--  if vim.bo.filetype == 'oil' then
+--    require('oil').close()
+--  else
+--    vim.cmd('Oil')
+--  end
+--end, { desc = 'Toggle Dired' })
+
+vim.keymap.set('n', 'gg', function() vim.cmd('Neogit') end, {desc = 'Open Neogit'})
+
+vim.keymap.set('n', '<C-o>', function() vim.cmd('Yazi toggle') end, { desc = 'Open Yazi' })
 
 -- Terminal
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Exit terminal insert mode' })
