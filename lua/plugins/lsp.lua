@@ -22,7 +22,7 @@ vim.diagnostic.config({
         focusable = false,
         style = 'minimal',
         border = 'rounded',
-        source = 'always',
+        source = true,
         header = '',
         prefix = '',
     },
@@ -53,6 +53,42 @@ cmp.setup({
         { name = 'buffer' },
         { name = 'path' },
     }),
+})
+
+-- Command-line completion
+cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = { { name = 'buffer' } },
+})
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({ { name = 'path' } }, { { name = 'cmdline' } }),
+})
+
+-- LSP progress UI (bottom-right "indexing..." messages)
+require('fidget').setup({})
+
+-- Formatter
+require('conform').setup({
+    default_format_opts = { lsp_format = 'fallback' },
+})
+
+-- Advertise nvim-cmp's completion capabilities (snippets etc.) to every server
+vim.lsp.config('*', {
+    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+})
+
+-- Make lua_ls aware of the Neovim runtime (fixes "undefined global vim")
+vim.lsp.config('lua_ls', {
+    settings = {
+        Lua = {
+            runtime = { version = 'LuaJIT' },
+            workspace = {
+                checkThirdParty = false,
+                library = { vim.env.VIMRUNTIME },
+            },
+        },
+    },
 })
 
 vim.lsp.enable({ 'clangd', 'lua_ls', 'rust_analyzer', 'gopls' })

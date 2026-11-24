@@ -1,20 +1,20 @@
-vim.opt.nu = true
-vim.wo.relativenumber = true
+vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
-vim.opt.autoindent = true
 vim.opt.smartindent = true
-vim.opt.incsearch = true
-vim.opt.updatetime = 5
-vim.opt.termguicolors = true
-vim.opt.background = "dark"
-vim.opt.hlsearch = true
+vim.opt.updatetime = 250
 vim.opt.splitbelow = true
+vim.opt.signcolumn = 'yes'
+vim.opt.undofile = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.scrolloff = 8
 vim.g.editorconfig = true
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
 
--- System clipboard
-vim.opt.clipboard:append("unnamedplus")
+-- System clipboard (deferred: provider detection can add startup time)
+vim.schedule(function()
+    vim.opt.clipboard:append("unnamedplus")
+end)

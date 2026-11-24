@@ -1,69 +1,73 @@
 # My Nvim configuration #
+Requires Neovim 0.12+ (plugins are managed with the built-in `vim.pack`).
+
 ## Install Reqs ##
-pacman -S npm ripgrep wget nodejs fzf unzip
+pacman -S npm ripgrep wget nodejs fzf unzip yazi
 
 ## Keybinds ##
-
-### Sessionizer ###
-ctrl-f          - Sessionizer
+Leader is `space`.
 
 ### Splits ###
-alt-h,j,k,l     - Selects the buffer\
-ctrl-h,j,k,l    - Resizes the buffer
+ctrl-h,j,k,l    - Move to split left / down / up / right\
+alt-h,l         - Resize split width\
+alt-j,k         - Resize split height\
+leader v        - Vertical split with a new empty buffer
+
+### Movement ###
+ctrl-d / ctrl-u - Half page down / up (cursor centered)\
+n / N           - Next / previous search match (centered)
 
 ### Visual ###
-J               - Move selection up\
-K               - Move selection down\
-\<              - Move selection left\
-\>              - Move selection right
+J               - Move selection down\
+K               - Move selection up\
+\<              - Indent selection left (keeps selection)\
+\>              - Indent selection right (keeps selection)\
+p               - Paste over selection without overwriting the register\
+leader uh       - Toggle case of hex digits in selection
+
+### Editing ###
+x / X           - Delete character without yanking\
+leader fr       - Find and replace word under cursor\
+Q               - Disabled
 
 ### Selection ###
-ctrl-c          - Stop highlighting / escape insert
+ctrl-c          - Clear search highlight / escape insert
 
 ### Auto completion ###
 ctrl-n          - Next item\
 ctrl-p          - Previous item\
+ctrl-space      - Trigger completion\
+ctrl-e          - Abort completion\
+ctrl-b / ctrl-f - Scroll docs\
 enter           - Confirms choice
 
-### Oil ###
-ctrl-o          - Toggle oil\
-
-### Terminal ###
-Ctrl t          - Open / close terminal\
-Esc             - Exit terminal insert mode
+### Yazi ###
+\-              - Toggle yazi
 
 ### LSP ###
 gd              - Go to definition\
 gD              - Go to declaration\
 gr              - Show references\
-gi              - Go to implementation\
-gt              - Goto type definition\
-]]              - Next reference\
-[[              - Previous reference\
-leader rn       - Rename Symbol\
-leader f        - Format
+gI              - Go to implementation\
+gt              - Go to type definition\
+leader rn       - Rename symbol\
+leader ca       - Code action
 
 ### Conform ###
 leader l        - Format
 
-### Harpoon ###
-alt a           - Add current file to tags\
-alt e           - Open tag explorer\
-alt w           - Remove current file from tags\
-alt 1-5         - Jump to file
-
 ### Neogit ###
 leader gg       - Open neogit\
-leader gh       - Show diffview
+leader gh       - File history (diffview)
 
 ### Undotree ###
-leader ut       - Show undotree
+leader ut       - Toggle undotree
 
 ### Search ###
 leader e        - Fuzzy find files\
 leader pg       - Fuzzy find git files\
-leader pw       - Grep find current selected word\
-leader pr       - Grep find current selected WORD\
+leader pw       - Grep word under cursor\
+leader pr       - Grep WORD under cursor\
 leader ps       - Grep search\
 leader sf       - Find symbols (current file)\
 leader sg       - Find symbols (workspace)\
